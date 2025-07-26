@@ -21,7 +21,7 @@
 
     h1 {
       text-align: center;
-      font-size: 2.5rem;
+      font-size: clamp(1.5rem, 4vw, 2.5rem);
       margin: 1rem 0;
       color: #333;
     }
@@ -29,7 +29,6 @@
     .grid {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
-      grid-template-rows: repeat(7, 1fr);
       gap: 10px;
       width: 90vw;
       max-width: 600px;
@@ -38,13 +37,16 @@
     .letter-box {
       border: 2px solid #CB9B39;
       border-radius: 8px;
-      text-align: center;
-      padding: 1rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 0.5rem;
       cursor: pointer;
       transition: transform 0.2s ease;
-      font-size: 2.5rem;
+      font-size: clamp(2rem, 5vw, 3rem);
       color: black;
       user-select: none;
+      aspect-ratio: 1 / 1; /* Kare görünüm */
     }
 
     .letter-box:active,
@@ -53,7 +55,7 @@
     }
 
     .letter-box.active span {
-      color: red; /* sadece metin kırmızıya dönüşür */
+      color: red; /* Sadece harf rengi değişir */
     }
   </style>
 </head>
@@ -62,7 +64,7 @@
   <h1>HARFLER</h1>
 
   <div class="grid" id="grid">
-    <!-- Harf kutuları burada oluşturulacak -->
+    <!-- Harf kutuları buraya JS ile eklenecek -->
   </div>
 
   <script>
@@ -75,18 +77,12 @@
 
       const span = document.createElement("span");
       span.textContent = letter;
-
       box.appendChild(span);
 
       box.addEventListener("click", () => {
-        // Vurgu efekti
         box.classList.add("active");
-
-        // Ses çal
         const audio = new Audio(`${letter}.mp3`);
         audio.play();
-
-        // Efekti kaldır
         setTimeout(() => {
           box.classList.remove("active");
         }, 500);
